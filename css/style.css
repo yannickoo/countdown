@@ -1,0 +1,23 @@
+body {
+  font-family: helvetica;
+  font-size: 42px;
+  width: 600px;
+  margin: 0 auto;
+}
+
+body.nerdy {
+  font-family: courier;
+  background: #000;
+  color: #0f0;
+  text-transform: uppercase;
+}
+
+#countdown {
+  width: 60%;
+  margin: 0 auto;
+}
+
+.is-countdown {
+  border: 0;
+  background: none;
+}

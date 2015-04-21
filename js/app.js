@@ -2,7 +2,8 @@ $(document).ready(function() {
   var $countdown = $('#countdown'),
       $form = $('form'),
       $end = $form.children('input'),
-      until = new Date(2015, 4, 5),
+      currentYear = new Date().getFullYear(),
+      until = new Date(currentYear, 4, 5),
       message = 'Countdown expired!',
       timestamp,
       end;

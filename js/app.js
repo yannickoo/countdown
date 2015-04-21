@@ -70,8 +70,10 @@ $(document).ready(function() {
 
   $form.on('submit', function(e) {
     var timeVal = $form.find('input[name="time"]').val(),
-        time = new Date(timeVal),
-        date = iso8601(time);
+        time = new Date(timeVal);
+
+    time.setTime(time.getTime() + (time.getTimezoneOffset() * 60 * 1000));
+    var date = iso8601(time);
 
     if (date) {
       location.hash = date;

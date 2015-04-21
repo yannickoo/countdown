@@ -3,8 +3,8 @@ $(document).ready(function() {
       $form = $('form'),
       $end = $form.children('input'),
       currentYear = new Date().getFullYear(),
-      until = new Date(currentYear, 4, 5),
       message = 'Countdown expired!',
+      until,
       timestamp,
       end;
 
@@ -27,10 +27,15 @@ $(document).ready(function() {
       }
 
       until = new Date(timestamp * 1000);
-      end = until.toISOString().slice(0, 16);
-
-      $end.val(end);
     }
+    else {
+      until = new Date(Date.UTC(currentYear, 4, 5));
+    }
+
+    end = until.toISOString().slice(0, 16);
+    $end.val(end);
+
+    console.log(until);
 
     $countdown.countdown('destroy').countdown({
       until: until,

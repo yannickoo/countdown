@@ -21,3 +21,23 @@ body.nerdy {
   border: 0;
   background: none;
 }
+
+form {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  opacity: 0.4;
+}
+
+form:hover {
+  opacity: 1;
+}
+
+form input {
+  border: 0;
+  background: transparent;
+}
+
+input:focus {
+  outline: 0;
+}

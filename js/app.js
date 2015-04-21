@@ -5,8 +5,27 @@ $(document).ready(function() {
       currentYear = new Date().getFullYear(),
       message = 'Countdown expired!',
       until,
-      timestamp,
-      end;
+      date,
+      end,
+      pad = function(n) {
+        return n < 10 ? '0' + n : n;
+      },
+      iso8601 = function(date) {
+        var tzo = -date.getTimezoneOffset(),
+            dif = tzo >= 0 ? '+' : '-',
+            pad = function(num) {
+              var norm = Math.abs(Math.floor(num));
+              return (norm < 10 ? '0' : '') + norm;
+            };
+
+        return date.getFullYear()
+          + '-' + pad(date.getMonth()+1)
+          + '-' + pad(date.getDate())
+          + 'T' + pad(date.getHours())
+          + ':' + pad(date.getMinutes())
+          + dif + pad(tzo / 60)
+          + ':' + pad(tzo % 60);
+      };
 
   $(window).on('hashchange', function() {
     var hash = location.hash.substr(1);
@@ -14,28 +33,21 @@ $(document).ready(function() {
     if (hash) {
       if (hash.indexOf('|') !== -1) {
         hash = hash.split('|');
-        timestamp = hash[0];
+        date = hash[0];
         message = hash[1];
       }
       else {
-        timestamp = hash;
+        date = hash;
       }
 
-      if (parseInt(timestamp) != timestamp) {
-        $countdown.text('o_ô');
-        return;
-      }
-
-      until = new Date(timestamp * 1000);
+      until = new Date(Date.parse(date));
     }
     else {
-      until = new Date(Date.UTC(currentYear, 4, 5));
+      until = new Date(Date.parse(currentYear + '-05-05T00:00+02:00'));
     }
 
-    end = until.toISOString().slice(0, 16);
+    end = until.getFullYear() + '-' + pad(until.getMonth() + 1) + '-' + pad(until.getDate()) + 'T' + pad(until.getHours()) + ':' + pad(until.getMinutes());
     $end.val(end);
-
-    console.log(until);
 
     $countdown.countdown('destroy').countdown({
       until: until,
@@ -59,12 +71,10 @@ $(document).ready(function() {
   $form.on('submit', function(e) {
     var timeVal = $form.find('input[name="time"]').val(),
         time = new Date(timeVal),
-        timeUTC = time.toUTCString();
+        date = iso8601(time);
 
-        var ts = Math.floor(time.getTime() / 1000);
-
-    if (ts) {
-      location.hash = ts;
+    if (date) {
+      location.hash = date;
     }
 
     e.preventDefault();

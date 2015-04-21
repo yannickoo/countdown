@@ -12,7 +12,7 @@ $(document).ready(function() {
     var hash = location.hash.substr(1);
 
     if (hash) {
-      if (hash.indexOf('|')) {
+      if (hash.indexOf('|') !== -1) {
         hash = hash.split('|');
         timestamp = hash[0];
         message = hash[1];
@@ -52,8 +52,11 @@ $(document).ready(function() {
   }).trigger('hashchange');
 
   $form.on('submit', function(e) {
-    var time = $form.find('input[name="time"]').val(),
-        ts = new Date(time).getTime() / 1000;
+    var timeVal = $form.find('input[name="time"]').val(),
+        time = new Date(timeVal),
+        timeUTC = time.toUTCString();
+
+        var ts = Math.floor(time.getTime() / 1000);
 
     if (ts) {
       location.hash = ts;

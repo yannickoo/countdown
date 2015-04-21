@@ -12,6 +12,10 @@ body.nerdy {
   text-transform: uppercase;
 }
 
+body.hide-content > * {
+  display: none;
+}
+
 #countdown {
   width: 60%;
   margin: 0 auto;

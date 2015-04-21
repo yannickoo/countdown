@@ -64,8 +64,12 @@ $(document).ready(function() {
 
   var $body = $('body');
   $(document).keydown(function(e) {
-    if (e.keyCode ===	 78) {
+    if (e.keyCode === 78) {
       $body.toggleClass('nerdy');
+      e.preventDefault();
+    }
+    else if (e.keyCode === 83) {
+      $body.toggleClass('hide-content');
       e.preventDefault();
     }
   });

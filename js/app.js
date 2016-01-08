@@ -28,7 +28,7 @@ $(document).ready(function() {
       };
 
   $(window).on('hashchange', function() {
-    var hash = location.hash.substr(1);
+    var hash = decodeURI(location.hash.substr(1));
 
     if (hash) {
       if (hash.indexOf('|') !== -1) {
